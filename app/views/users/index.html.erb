@@ -1,0 +1,33 @@
+<div class='main-container'>
+    <table class='table'>
+        <% columns = User.column_names - ['created_at', 'updated_at', 'id']%>
+        <thead>
+            <tr>
+                <% columns.each do |name| %>
+                    <th><%= name %></th>
+                <% end %>
+                <th>skills</th>
+                <th>interests</th>
+            </tr>
+        </thead>
+        <tbody class="" style='width: 100%'>
+            <% @users.each do |user| %>
+                <tr>
+                    <% columns.each do |key| %>
+                        <td>
+                            <%= user["#{key}"] %>
+                        </td>
+                    <% end %>
+                    <td>
+                        <%= user.skills.pluck(:name).join(", ") %>
+                    </td>
+                    <td>
+                        <%= user.interests.pluck(:name).join(", ") %>
+                    </td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+
+    <%= link_to 'Создать нового пользователя', new_user_path, class: 'link' %>
+</div>

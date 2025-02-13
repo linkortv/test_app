@@ -1,0 +1,23 @@
+<%= link_to 'Главная', root_path, class: 'link' %>
+
+<div class='link' style='color: red'>
+    <%= params[:locals] if params[:locals].present? %>
+</div>
+<%= form_with url: users_path, method: :post do |form| %>
+    <% columns = User.column_names - ['created_at', 'updated_at', 'id', 'full_name']%>
+    <% columns.each do |name| %>
+        <div style='display: grid; grid-template-columns: 20% 80%'>
+            <label for="<%= name %>"><%= name %></label>
+            <input name='<%= name %>'>
+        </div>
+    <% end %>
+    <div style='display: grid; grid-template-columns: 20% 80%'>
+        <label for="skills">Skills</label>
+        <input name='skills'>
+    </div>
+    <div style='display: grid; grid-template-columns: 20% 80%'>
+        <label for="interests">Interests</label>
+        <input name='interests'>
+    </div>
+    <button type='submit' class='link'>Создать</button>
+<% end %>
