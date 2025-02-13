@@ -16,10 +16,9 @@ class Users::Create < ActiveInteraction::Base
   validate :email_uniq
   validate :age_in_valid_range
   validate :gender
+  validate :missing_params
 
   def execute
-    return if missing_params
-
     user_full_name = "#{params[:surname]} #{params[:name]} #{params[:patronymic]}"
     user_params = params.except(:interests, :skills).merge(full_name: user_full_name)
     user = User.new(user_params)
@@ -33,7 +32,7 @@ class Users::Create < ActiveInteraction::Base
   private
 
   def missing_params
-    %w[name surname email age nationality country gender].any? { |key| params[key].blank? }
+    errors.add(:params, 'Заполните все поля') if %w[name surname email age nationality country gender].any? { |key| params[key].blank? }
   end
 
   def age_in_valid_range
