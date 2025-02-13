@@ -6,6 +6,8 @@
                 <% columns.each do |name| %>
                     <th><%= name %></th>
                 <% end %>
+                <th>skills</th>
+                <th>interests</th>
             </tr>
         </thead>
         <tbody class="" style='width: 100%'>
@@ -16,6 +18,12 @@
                             <%= user["#{key}"] %>
                         </td>
                     <% end %>
+                    <td>
+                        <%= user.skills.pluck(:name).join(", ") %>
+                    </td>
+                    <td>
+                        <%= user.interests.pluck(:name).join(", ") %>
+                    </td>
                 </tr>
             <% end %>
         </tbody>

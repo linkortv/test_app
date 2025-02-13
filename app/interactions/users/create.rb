@@ -21,12 +21,12 @@ class Users::Create < ActiveInteraction::Base
   def execute
     user_full_name = "#{params[:surname]} #{params[:name]} #{params[:patronymic]}"
     user_params = params.except(:interests, :skills).merge(full_name: user_full_name)
-    user = User.new(user_params)
+    @user = User.new(user_params)
 
     append_skills(params['skills']) if params['skills'].present?
     append_interests(params['interests']) if params['interests'].present?
 
-    user.save
+    @user.save
   end
 
   private
@@ -50,14 +50,14 @@ class Users::Create < ActiveInteraction::Base
   def append_skills(skills)
     skills.split(',').each do |name|
       skill = Skill.find_or_create_by(name: name)
-      user.skills << skill unless user.skills.include?(skill)
+      @user.skills << skill unless @user.skills.include?(skill)
     end
   end
 
   def append_interests(interests)
     interests.split(',').each do |name|
       interest = Interest.find_or_create_by(name: name)
-      user.interests << interest unless user.interests.include?(interest)
+      @user.interests << interest unless @user.interests.include?(interest)
     end
   end
 end
