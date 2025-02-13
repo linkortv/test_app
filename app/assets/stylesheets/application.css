@@ -8,3 +8,40 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+
+.main-container {
+    margin: 2rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    input {
+        margin-top: 1rem;
+    }
+    label {
+        margin-top: 1rem;
+        margin-right: 1rem;
+        display: flex;
+        justify-content: flex-end;
+    }
+}
+
+.table {
+    border-spacing: 0;
+    td {
+        border: 1px solid rgb(88, 88, 88);
+    }
+    th {
+        border: 1px solid rgb(88, 88, 88);
+    }
+}
+
+.link {
+    margin-top: 2rem;
+}

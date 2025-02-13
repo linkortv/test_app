@@ -24,8 +24,8 @@ class Users::Create < ActiveInteraction::Base
     user_params = params.except(:interests, :skills).merge(full_name: user_full_name)
     user = User.new(user_params)
 
-    append_skills(params['skills'])
-    append_interests(params['interests'])
+    append_skills(params['skills']) if params['skills'].present?
+    append_interests(params['interests']) if params['interests'].present?
 
     user.save
   end
@@ -33,7 +33,7 @@ class Users::Create < ActiveInteraction::Base
   private
 
   def missing_params
-    %w[name surname email age nationality country gender].any? { |key| params[key].empty? }
+    %w[name surname email age nationality country gender].any? { |key| params[key].blank? }
   end
 
   def age_in_valid_range
@@ -45,7 +45,7 @@ class Users::Create < ActiveInteraction::Base
   end
 
   def gender
-    errors.add(:gender, 'Должен быть male или female.') if ['male','female'].include? params[:gender]
+    errors.add(:gender, 'Должен быть male или female.') unless ['male','female'].include? params[:gender]
   end
 
   def append_skills(skills)

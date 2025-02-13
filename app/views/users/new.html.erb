@@ -1,0 +1,15 @@
+<%= link_to 'Главная', root_path, class: 'link' %>
+
+<div class='link' style='color: red'>
+    <%= params[:locals] if params[:locals].present? %>
+</div>
+<%= form_with url: users_path, method: :post do |form| %>
+    <% columns = User.column_names - ['created_at', 'updated_at', 'id']%>
+    <% columns.each do |name| %>
+        <div style='display: grid; grid-template-columns: 20% 80%'>
+            <label for="<%= name %>"><%= name %></label>
+            <input name='<%= name %>'>
+        </div>
+    <% end %>
+    <button type='submit' class='link'>Создать</button>
+<% end %>

@@ -1,0 +1,25 @@
+<div class='main-container'>
+    <table class='table'>
+        <% columns = User.column_names - ['created_at', 'updated_at', 'id']%>
+        <thead>
+            <tr>
+                <% columns.each do |name| %>
+                    <th><%= name %></th>
+                <% end %>
+            </tr>
+        </thead>
+        <tbody class="" style='width: 100%'>
+            <% @users.each do |user| %>
+                <tr>
+                    <% columns.each do |key| %>
+                        <td>
+                            <%= user["#{key}"] %>
+                        </td>
+                    <% end %>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+
+    <%= link_to 'Создать нового пользователя', new_user_path, class: 'link' %>
+</div>
